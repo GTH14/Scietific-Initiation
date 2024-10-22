@@ -1,0 +1,204 @@
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>RTW Report - cseri.c</title>
+<script language="JavaScript" type="text/javascript" src="rtwreport_utils.js"></script>
+<script src="resources/eml_report_loadable_data.js"></script>
+</head>
+<body bgcolor="#eeeeee" onload="try {if (top) { if (top.rtwFileOnLoad) top.rtwFileOnLoad(window.document); else local_onload();}} catch(err) {};">
+<p>
+<table border="0" cellspacing="0" cellpadding="6" width="100%%" height="100%%"><tr><td width="100%%" valign="top" bgcolor="#ffffff">
+<h4>File: <a href="../cseri.c" target="rtwreport_document_frame" id="linkToText_plain">cseri.c</a></h4>
+<pre id="RTWcode">
+<a name="1"><font color="#888888 "><i>    1   </i></font></a><font color="#117755"><i>/*</i></font>
+<a name="2"><font color="#888888 "><i>    2   </i></font></a><font color="#117755"><I> * File: cseri.c</i></font>
+<a name="3"><font color="#888888 "><i>    3   </i></font></a><font color="#117755"><I> *</i></font>
+<a name="4"><font color="#888888 "><i>    4   </i></font></a><font color="#117755"><I> * MATLAB Coder version            : 3.3</i></font>
+<a name="5"><font color="#888888 "><i>    5   </i></font></a><font color="#117755"><I> * C/C++ source code generated on  : 30-Mar-2022 16:35:58</i></font>
+<a name="6"><font color="#888888 "><i>    6   </i></font></a><font color="#117755"><I> */</i></font>
+<a name="7"><font color="#888888 "><i>    7   </i></font></a>
+<a name="8"><font color="#888888 "><i>    8   </i></font></a><font color="#117755"><i>/* Include Files */</i></font>
+<a name="9"><font color="#888888 "><i>    9   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;rt_nonfinite.h&quot;</font>
+<a name="10"><font color="#888888 "><i>   10   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;Calc_pressao_estacionario.h&quot;</font>
+<a name="11"><font color="#888888 "><i>   11   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;cseri.h&quot;</font>
+<a name="12"><font color="#888888 "><i>   12   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;cuchk.h&quot;</font>
+<a name="13"><font color="#888888 "><i>   13   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;gammaln.h&quot;</font>
+<a name="14"><font color="#888888 "><i>   14   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;cmlri.h&quot;</font>
+<a name="15"><font color="#888888 "><i>   15   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;Calc_pressao_estacionario_rtwutil.h&quot;</font>
+<a name="16"><font color="#888888 "><i>   16   </i></font></a>
+<a name="17"><font color="#888888 "><i>   17   </i></font></a><font color="#117755"><i>/* Function Definitions */</i></font>
+<a name="18"><font color="#888888 "><i>   18   </i></font></a>
+<a name="19"><font color="#888888 "><i>   19   </i></font></a><font color="#117755"><i>/*</i></font>
+<a name="20"><font color="#888888 "><i>   20   </i></font></a><font color="#117755"><I> * Arguments    : const creal_T z</i></font>
+<a name="21"><font color="#888888 "><i>   21   </i></font></a><font color="#117755"><I> *                double fnu</i></font>
+<a name="22"><font color="#888888 "><i>   22   </i></font></a><font color="#117755"><I> *                int kode</i></font>
+<a name="23"><font color="#888888 "><i>   23   </i></font></a><font color="#117755"><I> *                int nin</i></font>
+<a name="24"><font color="#888888 "><i>   24   </i></font></a><font color="#117755"><I> *                creal_T *y</i></font>
+<a name="25"><font color="#888888 "><i>   25   </i></font></a><font color="#117755"><I> *                double tol</i></font>
+<a name="26"><font color="#888888 "><i>   26   </i></font></a><font color="#117755"><I> *                double elim</i></font>
+<a name="27"><font color="#888888 "><i>   27   </i></font></a><font color="#117755"><I> *                double alim</i></font>
+<a name="28"><font color="#888888 "><i>   28   </i></font></a><font color="#117755"><I> * Return Type  : int</i></font>
+<a name="29"><font color="#888888 "><i>   29   </i></font></a><font color="#117755"><I> */</i></font>
+<a name="30"><font color="#888888 "><i>   30   </i></font></a><font color="#112266"><b>int</b></font> <a name="fcn_cseri">cseri</a>(<font color="#112266"><b>const</b></font> <a href="rtwtypes_h.html#type_creal_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_creal_T');" target="_self"><font color="#1122aa">creal_T</font></a> z, <font color="#112266"><b>double</b></font> fnu, <font color="#112266"><b>int</b></font> kode, <font color="#112266"><b>int</b></font> nin, <a href="rtwtypes_h.html#type_creal_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_creal_T');" target="_self"><font color="#1122aa">creal_T</font></a> *y, <font color="#112266"><b>double</b></font> tol,
+<a name="31"><font color="#888888 "><i>   31   </i></font></a>          <font color="#112266"><b>double</b></font> elim, <font color="#112266"><b>double</b></font> alim)
+<a name="32"><font color="#888888 "><i>   32   </i></font></a><b>{</b>
+<a name="33"><font color="#888888 "><i>   33   </i></font></a>  <font color="#112266"><b>int</b></font> nz;
+<a name="34"><font color="#888888 "><i>   34   </i></font></a>  <font color="#112266"><b>int</b></font> n;
+<a name="35"><font color="#888888 "><i>   35   </i></font></a>  <font color="#112266"><b>double</b></font> az;
+<a name="36"><font color="#888888 "><i>   36   </i></font></a>  <font color="#112266"><b>double</b></font> crsc_re;
+<a name="37"><font color="#888888 "><i>   37   </i></font></a>  <a href="rtwtypes_h.html#type_boolean_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_boolean_T');" target="_self"><font color="#1122aa">boolean_T</font></a> iflag;
+<a name="38"><font color="#888888 "><i>   38   </i></font></a>  <font color="#112266"><b>double</b></font> hz_re;
+<a name="39"><font color="#888888 "><i>   39   </i></font></a>  <font color="#112266"><b>double</b></font> hz_im;
+<a name="40"><font color="#888888 "><i>   40   </i></font></a>  <font color="#112266"><b>double</b></font> cz_re;
+<a name="41"><font color="#888888 "><i>   41   </i></font></a>  <font color="#112266"><b>double</b></font> cz_im;
+<a name="42"><font color="#888888 "><i>   42   </i></font></a>  <font color="#112266"><b>double</b></font> acz;
+<a name="43"><font color="#888888 "><i>   43   </i></font></a>  <a href="rtwtypes_h.html#type_creal_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_creal_T');" target="_self"><font color="#1122aa">creal_T</font></a> ck;
+<a name="44"><font color="#888888 "><i>   44   </i></font></a>  <font color="#112266"><b>double</b></font> ak;
+<a name="45"><font color="#888888 "><i>   45   </i></font></a>  <font color="#112266"><b>double</b></font> ascle;
+<a name="46"><font color="#888888 "><i>   46   </i></font></a>  <font color="#112266"><b>double</b></font> aa;
+<a name="47"><font color="#888888 "><i>   47   </i></font></a>  <font color="#112266"><b>double</b></font> coef_re;
+<a name="48"><font color="#888888 "><i>   48   </i></font></a>  <font color="#112266"><b>double</b></font> coef_im;
+<a name="49"><font color="#888888 "><i>   49   </i></font></a>  <font color="#112266"><b>double</b></font> b_atol;
+<a name="50"><font color="#888888 "><i>   50   </i></font></a>  <font color="#112266"><b>int</b></font> i;
+<a name="51"><font color="#888888 "><i>   51   </i></font></a>  <a href="rtwtypes_h.html#type_boolean_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_boolean_T');" target="_self"><font color="#1122aa">boolean_T</font></a> exitg1;
+<a name="52"><font color="#888888 "><i>   52   </i></font></a>  <font color="#112266"><b>double</b></font> s1_re;
+<a name="53"><font color="#888888 "><i>   53   </i></font></a>  <font color="#112266"><b>double</b></font> s1_im;
+<a name="54"><font color="#888888 "><i>   54   </i></font></a>  <font color="#112266"><b>if</b></font> (nin &lt; 1) <b>{</b>
+<a name="55"><font color="#888888 "><i>   55   </i></font></a>    n = nin;
+<a name="56"><font color="#888888 "><i>   56   </i></font></a>  <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="57"><font color="#888888 "><i>   57   </i></font></a>    n = 1;
+<a name="58"><font color="#888888 "><i>   58   </i></font></a>  <b>}</b>
+<a name="59"><font color="#888888 "><i>   59   </i></font></a>
+<a name="60"><font color="#888888 "><i>   60   </i></font></a>  nz = 0;
+<a name="61"><font color="#888888 "><i>   61   </i></font></a>  az = <a href="Calc_pressao_estacionario_rtwutil_c.html#fcn_rt_hypotd_snf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rt_hypotd_snf');" target="_self"><font color="#1122aa">rt_hypotd_snf</font></a>(z.re, z.im);
+<a name="62"><font color="#888888 "><i>   62   </i></font></a>  <font color="#112266"><b>if</b></font> (az == 0.0) <b>{</b>
+<a name="63"><font color="#888888 "><i>   63   </i></font></a>    <font color="#112266"><b>if</b></font> (fnu == 0.0) <b>{</b>
+<a name="64"><font color="#888888 "><i>   64   </i></font></a>      y-&gt;re = 1.0;
+<a name="65"><font color="#888888 "><i>   65   </i></font></a>      y-&gt;im = 0.0;
+<a name="66"><font color="#888888 "><i>   66   </i></font></a>    <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="67"><font color="#888888 "><i>   67   </i></font></a>      y-&gt;re = 0.0;
+<a name="68"><font color="#888888 "><i>   68   </i></font></a>      y-&gt;im = 0.0;
+<a name="69"><font color="#888888 "><i>   69   </i></font></a>    <b>}</b>
+<a name="70"><font color="#888888 "><i>   70   </i></font></a>  <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="71"><font color="#888888 "><i>   71   </i></font></a>    crsc_re = 1.0;
+<a name="72"><font color="#888888 "><i>   72   </i></font></a>    iflag = false;
+<a name="73"><font color="#888888 "><i>   73   </i></font></a>    <font color="#112266"><b>if</b></font> (az &lt; 2.2250738585072014E-305) <b>{</b>
+<a name="74"><font color="#888888 "><i>   74   </i></font></a>      nz = n;
+<a name="75"><font color="#888888 "><i>   75   </i></font></a>      <font color="#112266"><b>if</b></font> (fnu == 0.0) <b>{</b>
+<a name="76"><font color="#888888 "><i>   76   </i></font></a>        nz = n - 1;
+<a name="77"><font color="#888888 "><i>   77   </i></font></a>        y-&gt;re = 1.0;
+<a name="78"><font color="#888888 "><i>   78   </i></font></a>        y-&gt;im = 0.0;
+<a name="79"><font color="#888888 "><i>   79   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="80"><font color="#888888 "><i>   80   </i></font></a>        y-&gt;re = 0.0;
+<a name="81"><font color="#888888 "><i>   81   </i></font></a>        y-&gt;im = 0.0;
+<a name="82"><font color="#888888 "><i>   82   </i></font></a>      <b>}</b>
+<a name="83"><font color="#888888 "><i>   83   </i></font></a>    <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="84"><font color="#888888 "><i>   84   </i></font></a>      hz_re = 0.5 * z.re;
+<a name="85"><font color="#888888 "><i>   85   </i></font></a>      hz_im = 0.5 * z.im;
+<a name="86"><font color="#888888 "><i>   86   </i></font></a>      <font color="#112266"><b>if</b></font> (az &gt; 4.7170688552396617E-153) <b>{</b>
+<a name="87"><font color="#888888 "><i>   87   </i></font></a>        cz_re = hz_re * hz_re - hz_im * hz_im;
+<a name="88"><font color="#888888 "><i>   88   </i></font></a>        cz_im = hz_re * hz_im + hz_im * hz_re;
+<a name="89"><font color="#888888 "><i>   89   </i></font></a>        acz = <a href="Calc_pressao_estacionario_rtwutil_c.html#fcn_rt_hypotd_snf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rt_hypotd_snf');" target="_self"><font color="#1122aa">rt_hypotd_snf</font></a>(cz_re, cz_im);
+<a name="90"><font color="#888888 "><i>   90   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="91"><font color="#888888 "><i>   91   </i></font></a>        cz_re = 0.0;
+<a name="92"><font color="#888888 "><i>   92   </i></font></a>        cz_im = 0.0;
+<a name="93"><font color="#888888 "><i>   93   </i></font></a>        acz = 0.0;
+<a name="94"><font color="#888888 "><i>   94   </i></font></a>      <b>}</b>
+<a name="95"><font color="#888888 "><i>   95   </i></font></a>
+<a name="96"><font color="#888888 "><i>   96   </i></font></a>      ck.re = hz_re;
+<a name="97"><font color="#888888 "><i>   97   </i></font></a>      ck.im = hz_im;
+<a name="98"><font color="#888888 "><i>   98   </i></font></a>      <font color="#112266"><b>if</b></font> ((hz_im == 0.0) &amp;&amp; <a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(hz_re)) <b>{</b>
+<a name="99"><font color="#888888 "><i>   99   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <font color="#112266"><b>if</b></font> ((fabs(hz_re) &gt; 8.9884656743115785E+307) || (fabs(hz_im) &gt;
+<a name="100"><font color="#888888 "><i>  100   </i></font></a>                  8.9884656743115785E+307)) <b>{</b>
+<a name="101"><font color="#888888 "><i>  101   </i></font></a>        ck.re = log(<a href="Calc_pressao_estacionario_rtwutil_c.html#fcn_rt_hypotd_snf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rt_hypotd_snf');" target="_self"><font color="#1122aa">rt_hypotd_snf</font></a>(hz_re / 2.0, hz_im / 2.0)) +
+<a name="102"><font color="#888888 "><i>  102   </i></font></a>          0.69314718055994529;
+<a name="103"><font color="#888888 "><i>  103   </i></font></a>        ck.im = <a href="Calc_pressao_estacionario_rtwutil_c.html#fcn_rt_atan2d_snf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rt_atan2d_snf');" target="_self"><font color="#1122aa">rt_atan2d_snf</font></a>(hz_im, hz_re);
+<a name="104"><font color="#888888 "><i>  104   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="105"><font color="#888888 "><i>  105   </i></font></a>        ck.re = log(<a href="Calc_pressao_estacionario_rtwutil_c.html#fcn_rt_hypotd_snf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rt_hypotd_snf');" target="_self"><font color="#1122aa">rt_hypotd_snf</font></a>(hz_re, hz_im));
+<a name="106"><font color="#888888 "><i>  106   </i></font></a>        ck.im = <a href="Calc_pressao_estacionario_rtwutil_c.html#fcn_rt_atan2d_snf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rt_atan2d_snf');" target="_self"><font color="#1122aa">rt_atan2d_snf</font></a>(hz_im, hz_re);
+<a name="107"><font color="#888888 "><i>  107   </i></font></a>      <b>}</b>
+<a name="108"><font color="#888888 "><i>  108   </i></font></a>
+<a name="109"><font color="#888888 "><i>  109   </i></font></a>      az = (fnu + (<font color="#112266"><b>double</b></font>)n) - 1.0;
+<a name="110"><font color="#888888 "><i>  110   </i></font></a>      ak = az + 1.0;
+<a name="111"><font color="#888888 "><i>  111   </i></font></a>      <a href="gammaln_c.html#fcn_gammaln" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_gammaln');" target="_self"><font color="#1122aa">gammaln</font></a>(&amp;ak);
+<a name="112"><font color="#888888 "><i>  112   </i></font></a>      ck.re = ck.re * az - ak;
+<a name="113"><font color="#888888 "><i>  113   </i></font></a>      ck.im *= az;
+<a name="114"><font color="#888888 "><i>  114   </i></font></a>      <font color="#112266"><b>if</b></font> (kode == 2) <b>{</b>
+<a name="115"><font color="#888888 "><i>  115   </i></font></a>        ck.re -= z.re;
+<a name="116"><font color="#888888 "><i>  116   </i></font></a>      <b>}</b>
+<a name="117"><font color="#888888 "><i>  117   </i></font></a>
+<a name="118"><font color="#888888 "><i>  118   </i></font></a>      <font color="#112266"><b>if</b></font> (ck.re &gt; -elim) <b>{</b>
+<a name="119"><font color="#888888 "><i>  119   </i></font></a>        ascle = 0.0;
+<a name="120"><font color="#888888 "><i>  120   </i></font></a>        <font color="#112266"><b>if</b></font> (ck.re &lt;= -alim) <b>{</b>
+<a name="121"><font color="#888888 "><i>  121   </i></font></a>          iflag = true;
+<a name="122"><font color="#888888 "><i>  122   </i></font></a>          crsc_re = tol;
+<a name="123"><font color="#888888 "><i>  123   </i></font></a>          ascle = 2.2250738585072014E-305 / tol;
+<a name="124"><font color="#888888 "><i>  124   </i></font></a>        <b>}</b>
+<a name="125"><font color="#888888 "><i>  125   </i></font></a>
+<a name="126"><font color="#888888 "><i>  126   </i></font></a>        aa = exp(ck.re);
+<a name="127"><font color="#888888 "><i>  127   </i></font></a>        <font color="#112266"><b>if</b></font> (iflag) <b>{</b>
+<a name="128"><font color="#888888 "><i>  128   </i></font></a>          aa /= tol;
+<a name="129"><font color="#888888 "><i>  129   </i></font></a>        <b>}</b>
+<a name="130"><font color="#888888 "><i>  130   </i></font></a>
+<a name="131"><font color="#888888 "><i>  131   </i></font></a>        coef_re = aa * cos(ck.im);
+<a name="132"><font color="#888888 "><i>  132   </i></font></a>        coef_im = aa * sin(ck.im);
+<a name="133"><font color="#888888 "><i>  133   </i></font></a>        b_atol = tol * acz / (az + 1.0);
+<a name="134"><font color="#888888 "><i>  134   </i></font></a>        i = 1;
+<a name="135"><font color="#888888 "><i>  135   </i></font></a>        exitg1 = false;
+<a name="136"><font color="#888888 "><i>  136   </i></font></a>        <font color="#112266"><b>while</b></font> ((!exitg1) &amp;&amp; (i &lt;= n)) <b>{</b>
+<a name="137"><font color="#888888 "><i>  137   </i></font></a>          s1_re = 1.0;
+<a name="138"><font color="#888888 "><i>  138   </i></font></a>          s1_im = 0.0;
+<a name="139"><font color="#888888 "><i>  139   </i></font></a>          <font color="#112266"><b>if</b></font> (!(acz &lt; tol * (fnu + 1.0))) <b>{</b>
+<a name="140"><font color="#888888 "><i>  140   </i></font></a>            ck.re = 1.0;
+<a name="141"><font color="#888888 "><i>  141   </i></font></a>            ck.im = 0.0;
+<a name="142"><font color="#888888 "><i>  142   </i></font></a>            ak = (fnu + 1.0) + 2.0;
+<a name="143"><font color="#888888 "><i>  143   </i></font></a>            az = fnu + 1.0;
+<a name="144"><font color="#888888 "><i>  144   </i></font></a>            aa = 2.0;
+<a name="145"><font color="#888888 "><i>  145   </i></font></a>            <font color="#112266"><b>do</b></font> <b>{</b>
+<a name="146"><font color="#888888 "><i>  146   </i></font></a>              hz_re = 1.0 / az;
+<a name="147"><font color="#888888 "><i>  147   </i></font></a>              hz_im = ck.re;
+<a name="148"><font color="#888888 "><i>  148   </i></font></a>              ck.re = hz_re * (ck.re * cz_re - ck.im * cz_im);
+<a name="149"><font color="#888888 "><i>  149   </i></font></a>              ck.im = hz_re * (hz_im * cz_im + ck.im * cz_re);
+<a name="150"><font color="#888888 "><i>  150   </i></font></a>              s1_re += ck.re;
+<a name="151"><font color="#888888 "><i>  151   </i></font></a>              s1_im += ck.im;
+<a name="152"><font color="#888888 "><i>  152   </i></font></a>              az += ak;
+<a name="153"><font color="#888888 "><i>  153   </i></font></a>              ak += 2.0;
+<a name="154"><font color="#888888 "><i>  154   </i></font></a>              aa = aa * acz * hz_re;
+<a name="155"><font color="#888888 "><i>  155   </i></font></a>            <b>}</b> <font color="#112266"><b>while</b></font> (!!(aa &gt; b_atol));
+<a name="156"><font color="#888888 "><i>  156   </i></font></a>          <b>}</b>
+<a name="157"><font color="#888888 "><i>  157   </i></font></a>
+<a name="158"><font color="#888888 "><i>  158   </i></font></a>          ck.re = s1_re * coef_re - s1_im * coef_im;
+<a name="159"><font color="#888888 "><i>  159   </i></font></a>          ck.im = s1_re * coef_im + s1_im * coef_re;
+<a name="160"><font color="#888888 "><i>  160   </i></font></a>          <font color="#112266"><b>if</b></font> (iflag &amp;&amp; (<a href="cuchk_c.html#fcn_cuchk" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_cuchk');" target="_self"><font color="#1122aa">cuchk</font></a>(ck, ascle, tol) != 0)) <b>{</b>
+<a name="161"><font color="#888888 "><i>  161   </i></font></a>            exitg1 = true;
+<a name="162"><font color="#888888 "><i>  162   </i></font></a>          <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="163"><font color="#888888 "><i>  163   </i></font></a>            y-&gt;re = ck.re * crsc_re - ck.im * 0.0;
+<a name="164"><font color="#888888 "><i>  164   </i></font></a>            y-&gt;im = ck.re * 0.0 + ck.im * crsc_re;
+<a name="165"><font color="#888888 "><i>  165   </i></font></a>            i = 2;
+<a name="166"><font color="#888888 "><i>  166   </i></font></a>          <b>}</b>
+<a name="167"><font color="#888888 "><i>  167   </i></font></a>        <b>}</b>
+<a name="168"><font color="#888888 "><i>  168   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="169"><font color="#888888 "><i>  169   </i></font></a>        nz = 1;
+<a name="170"><font color="#888888 "><i>  170   </i></font></a>        y-&gt;re = 0.0;
+<a name="171"><font color="#888888 "><i>  171   </i></font></a>        y-&gt;im = 0.0;
+<a name="172"><font color="#888888 "><i>  172   </i></font></a>        <font color="#112266"><b>if</b></font> (acz &gt; az) <b>{</b>
+<a name="173"><font color="#888888 "><i>  173   </i></font></a>          nz = -1;
+<a name="174"><font color="#888888 "><i>  174   </i></font></a>        <b>}</b>
+<a name="175"><font color="#888888 "><i>  175   </i></font></a>      <b>}</b>
+<a name="176"><font color="#888888 "><i>  176   </i></font></a>    <b>}</b>
+<a name="177"><font color="#888888 "><i>  177   </i></font></a>  <b>}</b>
+<a name="178"><font color="#888888 "><i>  178   </i></font></a>
+<a name="179"><font color="#888888 "><i>  179   </i></font></a>  <font color="#112266"><b>return</b></font> nz;
+<a name="180"><font color="#888888 "><i>  180   </i></font></a><b>}</b>
+<a name="181"><font color="#888888 "><i>  181   </i></font></a>
+<a name="182"><font color="#888888 "><i>  182   </i></font></a><font color="#117755"><i>/*</i></font>
+<a name="183"><font color="#888888 "><i>  183   </i></font></a><font color="#117755"><I> * File trailer for cseri.c</i></font>
+<a name="184"><font color="#888888 "><i>  184   </i></font></a><font color="#117755"><I> *</i></font>
+<a name="185"><font color="#888888 "><i>  185   </i></font></a><font color="#117755"><I> * [EOF]</i></font>
+<a name="186"><font color="#888888 "><i>  186   </i></font></a><font color="#117755"><I> */</i></font>
+<a name="187"><font color="#888888 "><i>  187   </i></font></a></pre>
+</td></tr></table>
+</p>
+</body>
+</html>

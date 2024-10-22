@@ -1,0 +1,8 @@
+Calc_Gorkov_mex.mexw64
+Calc_Gorkov		Calc_Gorkov
+Calc_Gorkov_atexit		Calc_Gorkov_atexit
+Calc_Gorkov_initialize		Calc_Gorkov_initialize
+Calc_Gorkov_terminate		Calc_Gorkov_terminate
+emlrtMexFcnProperties		emlrtMexFcnProperties
+mexFunction		mexFunction
+mexfilerequiredapiversion		mexfilerequiredapiversion

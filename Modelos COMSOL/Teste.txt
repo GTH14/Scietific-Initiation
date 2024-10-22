@@ -1,0 +1,43 @@
+a 5[mm] Raio do transdutor
+h_t 20[mm] Altura do transdutor
+d 10.16[mm] Distância do centro de um transdutor a outro adjacente a ele
+t_PML h_t/2 Espessura do PML
+z_ar 70[mm]+2*t_PML Altura do sistema de ar analisado
+y_ar d*3.5+a+t_PML+1[mm] Comprimento do sistema de ar analisado
+x_ar d*7+2*a+2*t_PML+2[mm] Largura do sistema de ar analisado
+rho_ar 1.3[kg/m^3] Densidade do ar
+c_ar 340[m/s] Velocidade de propagação de uma onda no ar
+f 40[kHz] Frequencia de oscilação do transdutor
+v 1[m/s] Velocidade de oscilação do transdutor
+fases1 39.7406 [rad] 
+fases2 41.1354 [rad] 
+fases3 43.792 [rad] 
+fases4 47.499 [rad] 
+fases5 35.2262 [rad] 
+fases6 36.7926 [rad] 
+fases7 39.7406 [rad] 
+fases8 43.792 [rad] 
+fases9 31.8633 [rad] 
+fases10 33.5869 [rad] 
+fases11 36.7926 [rad] 
+fases12 41.1354 [rad] 
+fases13 30.041 [rad] 
+fases14 31.8633 [rad] 
+fases15 35.2262 [rad] 
+fases16 39.7406 [rad] 
+fases17 33.1826 [rad] 
+fases18 35.0049 [rad] 
+fases19 38.3678 [rad] 
+fases20 42.8821 [rad] 
+fases21 35.0049 [rad] 
+fases22 36.7285 [rad] 
+fases23 39.9342 [rad] 
+fases24 44.277 [rad] 
+fases25 38.3678 [rad] 
+fases26 39.9342 [rad] 
+fases27 42.8821 [rad] 
+fases28 46.9335 [rad] 
+fases29 42.8821 [rad] 
+fases30 44.277 [rad] 
+fases31 46.9335 [rad] 
+fases32 50.6406 [rad] 

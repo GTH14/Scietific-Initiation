@@ -1,0 +1,23 @@
+function [vx, vy, vz] = Calc_vel(x, y, z, transdutor)
+    disc = transdutor.disc;
+    rho0 = transdutor.rho0;
+    omega = transdutor.omega;
+%     x_v1 = [(x-disc/2) (x+disc/2)];
+%     y_v1 = [y y];
+%     z_v1 = [z z];
+%     x_v2 = [x x];
+%     y_v2 = [(y-disc/2) (y+disc/2)];
+%     z_v2 = [z z];
+%     x_v3 = [x x];
+%     y_v3 = [y y];
+%     z_v3 = [(z-disc/2) (z+disc/2)];
+%     p1 = Calc_pressao(x_v1, y_v1, z_v1, transdutor);
+%     p2 = Calc_pressao(x_v2, y_v2, z_v2, transdutor);
+%     p3 = Calc_pressao(x_v3, y_v3, z_v3, transdutor);
+%     potential_v1 = p1./(j*omega*rho0);
+%     potential_v2 = p2./(j*omega*rho0);
+%     potential_v3 = p3./(j*omega*rho0);
+    vx = -(Calc_pressao(x+disc/2, y, z, transdutor)-Calc_pressao(x-disc/2, y, z, transdutor))/(j*omega*rho0*disc);
+    vy = -(Calc_pressao(x, y+disc/2, z, transdutor)-Calc_pressao(x, y-disc/2, z, transdutor))/(j*omega*rho0*disc);
+    vz = -(Calc_pressao(x, y, z+disc/2, transdutor)-Calc_pressao(x, y, z-disc/2, transdutor))/(j*omega*rho0*disc);
+end

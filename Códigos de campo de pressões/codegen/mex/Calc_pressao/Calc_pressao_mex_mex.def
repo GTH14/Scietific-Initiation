@@ -1,0 +1,9 @@
+LIBRARY Calc_pressao_mex.mexw64
+EXPORTS
+mexFunction
+mexfilerequiredapiversion
+emlrtMexFcnProperties
+Calc_pressao
+Calc_pressao_initialize
+Calc_pressao_terminate
+Calc_pressao_atexit
